@@ -1,0 +1,152 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+int main(int argc, char *argv[]) {
+
+}
+
+
+/*
+
+///
+there is a different file for handling built-in commands, maybe internal.c
+///
+
+int countTokens(char* str) {
+	char *token;
+   	token = strtok(str, s);
+    int tokenCount = 1;
+   	while (True) {
+      	token = strtok(NULL, s);
+        if (token == NULL) {
+            break;
+        } else {
+            tokenCount++;
+        }
+    }
+	
+	return tokenCount;
+}
+
+void interactiveMode() {
+    while (True) {
+		printf(myshell);
+
+		char input[1000] = {0};
+        char copy[1000] = {0};
+        FILE* fp = stdin;
+		fread(input, 1, 1000, fp);
+        strcpy(copy, input);
+
+        int tokenCount = countTokens(input);
+
+		int progArgc = 0;
+        char** progArgv; // this structure is an array of strings, terminated by NULL
+		progArgv = malloc((tokenCount + 1) * sizeof(char*));
+
+		//pipe 
+		int mypipe[2]; //mypipe[0] = read, mypipe[1] = write
+		// ^ has the file descriptors that refer to r/w of the pipe
+
+		//input redirection 
+		for(int i = 0; i < tokenCount - 1; i++){ 
+			if(progArgv[i] == '<'){
+				// setup for input redirection
+				continue;
+			}
+			if(progArgv[i] == '>'){
+				// setup for output redirection
+				continue;
+			}
+			if(progArgv[i] == '>>'){
+				// setup for appending output redirection
+				continue;
+			}
+			if(progArgv[i] == '|'){
+				// setup for piping
+				continue;
+			}
+
+			// reorganize progArgv to not have redirection or pipe tokens
+			progArgc++;
+		}
+		progArgv[progArgc] = NULL;
+
+		if (strcmp(progArgv[0], "cd") == 0) {
+			// handle cd
+		}
+		if (strcmp(progArgv[0], "clr") == 0) {
+			//handle clr
+		}
+		if (strcmp(progArgv[0], "dir") == 0) {
+			//handle dir
+		}
+		if (strcmp(progArgv[0], "environ") == 0) {
+			//handle environ
+		}
+		if (strcmp(progArgv[0], "echo") == 0) {
+			//handle echo
+		}
+		if (strcmp(progArgv[0], "help") == 0) {
+			//handle help
+		}
+		if (strcmp(progArgv[0], "pause") == 0) {
+			//handle pause
+		}
+		if (strcmp(progArgv[0], "quit") == 0) {
+			//handle quit
+		}
+
+		int amountOfCommands = 0; //count amt of commands there are by counting '|' amt of cmds is  | found + 1 
+		for (int j = 0; j < amountOfCommands; j++) {
+
+			// do pipe manipulations including pipe(mypipe)
+
+			for (int i = 0; i < tokenCount - 1; i++) {
+				// now we put all the tokens from copy into the commands progArgv
+			}
+			progArgv[tokenCount] = NULL;
+
+			// handle external commands
+		
+			pidt_t pid = fork();
+			if (pid == 0) {
+				// CHILD
+
+				// actually do redirection on stdin/stdout including piping if applicable
+				execv(progArgv[0], progArgv);
+				// handle execv failure
+			} else if (pid > 0) {
+				// PARENT
+
+				// cleanup the extra file descriptors like maybe pipes
+
+			} else { // pid == -1
+				// handle failure
+			}
+		}
+        
+		while (waitpid(-1, NULL, 0) > 0) {
+			// wait for every child to finish
+			//-1 = any child, null = don't use exit status of children, 0 = set no options
+		}
+
+	}
+}
+
+void nonInteractiveMode(char* filename) {
+	// basically the same thing as interactive mode code but instead
+	// we open a file stream of filename and then fread a line from it
+}
+
+int main(int argc, char *argv[]) {
+    if (argc == 1) {
+        interactiveMode();
+    } else {
+        nonInteractiveMode(argv[1]); // argv[1] is the first argument to ./myshell
+    }
+}
+
+*/

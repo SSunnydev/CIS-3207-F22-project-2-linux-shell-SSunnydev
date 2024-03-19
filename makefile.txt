@@ -1,0 +1,5 @@
+myshell: myshell.c builtins.c
+	gcc myshell.c builtins.c -o myshell
+
+clean:
+	rm -f *.o myshell
